@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Administrator (
 CREATE TABLE IF NOT EXISTS AdmWorkHours (
     empId INTEGER  REFERENCES Administrator (empID),
     day   DATE,
-    hours NUMBERIC,
+    hours NUMERIC (4, 2),
     PRIMARY KEY (
         empId,
         day
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS Purchases (
     clientID      INTEGER        REFERENCES Purchases (clientID),
     empID         INTEGER        REFERENCES Salesman (empID),
     packageID     INTEGER        REFERENCES AirtimePackage (packageID),
-    comissionRate NUMERIC (4, 2),
+    commissionRate NUMERIC (4, 2),
     PRIMARY KEY (
         clientID,
         empID,
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS Purchases (
 
 -- Table: Salesman
 CREATE TABLE IF NOT EXISTS Salesman (
-    empID  INTENGER     PRIMARY KEY,
+    empID  INTEGER     PRIMARY KEY,
     name   VARCHAR (10),
     gender CHAR (1) 
 );
