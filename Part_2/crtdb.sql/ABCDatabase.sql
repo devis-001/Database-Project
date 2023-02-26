@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Administrator (
 CREATE TABLE IF NOT EXISTS AdmWorkHours (
     empId INTEGER  REFERENCES Administrator (empID),
     day   DATE,
-    hours NUMBERIC,
+    hours NUMERIC (4, 2),
     PRIMARY KEY (
         empId,
         day
