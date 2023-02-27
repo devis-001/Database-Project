@@ -89,7 +89,7 @@ INSERT INTO DigitalDisplay(serialNo, schedularSystem, modelNo)
            (5, Sys5, 5);
 
 
---These are the last two tables to figure outP
+--These are the last two tables to figure out. Try inputing this data into the ABC.sqlite database tables. Then you will see the error!
 --Purchases
 INSERT INTO Purchases(clientID, empID, packageID, commissionRate)
     VALUES (1, 1, 1, 40.00),
