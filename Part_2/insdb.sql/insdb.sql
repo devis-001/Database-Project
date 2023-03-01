@@ -96,7 +96,7 @@ INSERT INTO Purchases(clientID, empID, packageID, commissionRate)
            (2, 2, 2, 30.00),
            (3, 3, 3, 40.00),
            (4, 4, 4, 30.00),
-           (5, 5, 5, 35.00;) 
+           (5, 5, 5, 35.00); 
 
 
 --Locates
