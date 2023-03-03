@@ -66,43 +66,43 @@ INSERT INTO Video(videoCode, videoLength)
 
 -- Table: Administers
 INSERT INTO Administers(empID, siteCode)
-    VALUES (1, 1),
-           (2, 2),
-           (3, 3),
-           (4, 4),
-           (5, 5);
+            VALUES (1, 1),
+                   (2, 2),
+                   (3, 3),
+                   (4, 4),
+                   (5, 5);
 
 
 -- Table: Broadcasts
 INSERT INTO Broadcasts(videoCode, siteCode)
-    VALUES (1, 1),
-           (2, 2),
-           (3, 3),
-           (4, 4),
-           (5, 5);
+             VALUES (1, 1),
+                    (2, 2),
+                    (3, 3),
+                    (4, 4),
+                    (5, 5);
+                    
 -- Table: DigitalDisplay
 INSERT INTO DigitalDisplay(serialNo, schedularSystem, modelNo)
-    VALUES (1, Sys1, 1),
-           (2, Sys2, 2),
-           (3, Sys3, 3),
-           (4, Sys4, 4),
-           (5, Sys5, 5);
+             VALUES (1, Sys1, 1),
+                    (2, Sys2, 2),
+                    (3, Sys3, 3),
+                    (4, Sys4, 4),
+                    (5, Sys5, 5);
 
 
---These are the last two tables to figure out. Try inputing this data into the ABC.sqlite database tables. Then you will see the error!
 --Purchases
 INSERT INTO Purchases(clientID, empID, packageID, commissionRate)
-    VALUES (1, 1, 1, 40.00),
-           (2, 2, 2, 30.00),
-           (3, 3, 3, 40.00),
-           (4, 4, 4, 30.00),
-           (5, 5, 5, 35.00); 
+             VALUES (1, 1, 1, 40.00),
+                    (2, 2, 2, 30.00),
+                    (3, 3, 3, 40.00),
+                    (4, 4, 4, 30.00),
+                    (5, 5, 5, 35.00); 
 
 
 --Locates
 INSERT INTO Locates(serialNo, siteCode)
-    VALUES (1, 1),
-           (2, 2),
-           (3, 3),
-           (4, 4),
-           (5, 5);
+             VALUES (1, 1),
+                    (2, 2),
+                    (3, 3),
+                    (4, 4),
+                    (5, 5);
