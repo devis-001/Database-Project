@@ -1,5 +1,12 @@
 # Database-Project
 ABC SQLite Database Project
+
+ The order of contribution in the project is listed below:
+ - Isaac Evans (username-mightysteve). Mighty Steve implemented the database using SQLite3. Named the SQLite database file as “ABC.sqlite”.
+    o Write proper SQL statements to create the required tables in the database and to set all the required constraints (e.g., primary key, foreign key, and value constraints).
+ - Jackie Evans inserted into each table 5 records. She put all the insertion SQL statements to “insdb.sql” text file.
+ - Devis Cheruiyot created the Schemas.pdf file with the screenshots of the schemas and also created a README.txt to write down the work allocation (the part each team member did) of the different team members. 
+ - All of the collaborators uploaded his or her part to the github repo although they helped each other by making corrections in each others files which had been uploaded.
 Description
 This project is a database implementation using SQLite3. The database is named "ABC.sqlite" and includes proper SQL statements to create the required tables in the database and set all the necessary constraints (e.g. primary key, foreign key, and value constraints). The SQL statements for creating the database are located in the "crtdb.sql" text file.
 
