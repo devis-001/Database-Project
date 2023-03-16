@@ -40,8 +40,6 @@ INSERT INTO Broadcasts(videoCode, siteCode)
               (4, 4),
               (5, 5);
 
-
-
 --Client
 INSERT INTO Client (clientID, name, phone, address)
        VALUES (1, "Caleb", 304-390-5453, "1232 W Mud River Rd" ),
