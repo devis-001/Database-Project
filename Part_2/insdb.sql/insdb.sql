@@ -113,3 +113,9 @@ INSERT INTO Specializes(empID, modelNo)
 		    (3, 3),
 		    (4, 4),
 		    (5, 5);
+INSERT INTO AirtimePackage(packageID, class, startDate, lastDate, frequency, videoCode)
+       VALUES (1, "Economy", 2023-03-16, 2023-03-22, 7, 1),
+              (3, "Whole Day", 2023-03-29, 2023-04-20, 14, 2),
+              (4, "Golden Hours", 2023-04-28, 2023-05-01, 7, 3),
+              (5, "Economy", 2023-05-02, 2023-05-15, 7, 4),
+              (6, "Economy", 2023-06-01, 2023-06-10, 14, 5);
