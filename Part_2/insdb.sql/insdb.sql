@@ -33,7 +33,7 @@ INSERT INTO AdmWorkHours (day, hours)
                    ('Friday', 05.00);
 
 --Salesman
-INSERT INTO Salesman(empdID, name, gender)
+INSERT INTO Salesman(empID, name, gender)
             VALUES (1, "Willie Kayley", 'M'),
                    (2, "Gypsy Tessie", 'F'),
                    (3, "Johnnie Candyce", 'M'),
@@ -106,3 +106,10 @@ INSERT INTO Locates(serialNo, siteCode)
                     (3, 3),
                     (4, 4),
                     (5, 5);
+--Specializes
+INSERT INTO Specializes(empID, modelNo)
+	     VALUES (1, 1),
+		    (2, 2),
+		    (3, 3),
+		    (4, 4),
+		    (5, 5);
