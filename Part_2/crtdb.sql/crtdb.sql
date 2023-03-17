@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS Client (
 -- Table: DigitalDisplay
 CREATE TABLE IF NOT EXISTS DigitalDisplay (
     serialNo        CHAR (10) PRIMARY KEY,
-    schedularSystem CHAR (10) CHECK ('Random' OR 'Smart' OR 'Virtue'),
+    schedularSystem CHAR (10) CHECK (schedulerSystem IN ('Random', 'Smart', 'Virtue')),
     modelNo         CHAR (10) REFERENCES Model (modelNo) 
 );
 
