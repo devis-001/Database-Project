@@ -9,21 +9,21 @@ BEGIN TRANSACTION;
 
 -- Table: AdmWorkHours
 CREATE TABLE IF NOT EXISTS AdmWorkHours (
-    empId INTEGER  REFERENCES Administrator (empID),
+    empId INTEGER  REFERENCES Administrator (empId),
     day   DATE,
     hours NUMERIC (4, 2),
     PRIMARY KEY (
-        empID,
+        empId,
         day
     )
 );
 
 -- Table: Administers
 CREATE TABLE IF NOT EXISTS Administers (
-    empID    INTEGER REFERENCES Administrator (empID),
+    empId    INTEGER REFERENCES Administrator (empId),
     siteCode INTEGER REFERENCES Site (siteCode),
     PRIMARY KEY (
-        empID,
+        empId,
         siteCode
     )
 );
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Administers (
 
 -- Table: Administrator
 CREATE TABLE IF NOT EXISTS Administrator (
-    empID  INTEGER      PRIMARY KEY,
+    empId  INTEGER      PRIMARY KEY,
     name   VARCHAR (40),
     gender CHAR (1) 
 );
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Administrator (
 
 -- Table: AirtimePackage
 CREATE TABLE IF NOT EXISTS AirtimePackage (
-    packageID INTEGER      PRIMARY KEY,
+    packageId INTEGER      PRIMARY KEY,
     class     VARCHAR 
     startDate  DATE,
     lastDate  DATE,
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS Broadcasts (
 
 -- Table: Client
 CREATE TABLE IF NOT EXISTS Client (
-    clientID INTEGER       PRIMARY KEY,
+    clientId INTEGER       PRIMARY KEY,
     name     VARCHAR (40),
     phone    VARCHAR (16),
     address  VARCHAR (100) 
@@ -102,21 +102,21 @@ CREATE TABLE IF NOT EXISTS Model (
 
 -- Table: Purchases
 CREATE TABLE IF NOT EXISTS Purchases (
-    clientID      INTEGER        REFERENCES Client (clientID),
-    empID         INTEGER        REFERENCES Salesman (empID),
-    packageID     INTEGER        REFERENCES AirtimePackage (packageID),
+    clientId      INTEGER        REFERENCES Client (clientId),
+    empId         INTEGER        REFERENCES Salesman (empId),
+    packageId     INTEGER        REFERENCES AirtimePackage (packageId),
     commissionRate NUMERIC (4, 2),
     PRIMARY KEY (
-        clientID,
-        empID,
-        packageID
+        clientId,
+        empId,
+        packageId
     )
 );
 
 
 -- Table: Salesman
 CREATE TABLE IF NOT EXISTS Salesman (
-    empID  INTEGER     PRIMARY KEY,
+    empId  INTEGER     PRIMARY KEY,
     name   VARCHAR (10),
     gender CHAR (1) 
 );
@@ -132,13 +132,13 @@ CREATE TABLE IF NOT EXISTS Site (
 
 
 
---change modelNO to modelNo
+
 -- Table: Specializes
 CREATE TABLE IF NOT EXISTS Specializes (
-    empID   INTEGER   REFERENCES TechnicalSupport (empID),
+    empId   INTEGER   REFERENCES TechnicalSupport (empId),
     modelNo CHAR (10) REFERENCES Model (modelNo),
     PRIMARY KEY (
-        empID,
+        empId,
         modelNo
     )
 );
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS Specializes (
 
 -- Table: TechnicalSupport
 CREATE TABLE IF NOT EXISTS TechnicalSupport (
-    empID  INTEGER      PRIMARY KEY,
+    empId  INTEGER      PRIMARY KEY,
     name   VARCHAR (40),
     gender CHAR (1) 
 );
