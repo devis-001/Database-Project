@@ -6,14 +6,14 @@
 PRAGMA foreign_keys = off;
 BEGIN TRANSACTION;
 
---Change empId to empID
+
 -- Table: AdmWorkHours
 CREATE TABLE IF NOT EXISTS AdmWorkHours (
     empId INTEGER  REFERENCES Administrator (empID),
     day   DATE,
     hours NUMERIC (4, 2),
     PRIMARY KEY (
-        empId,
+        empID,
         day
     )
 );
@@ -36,26 +36,18 @@ CREATE TABLE IF NOT EXISTS Administrator (
     gender CHAR (1) 
 );
 
---change starDate to startDate
+
 -- Table: AirtimePackage
 CREATE TABLE IF NOT EXISTS AirtimePackage (
     packageID INTEGER      PRIMARY KEY,
-    class     VARCHAR (16),
-    starDate  DATE,
+    class     VARCHAR 
+    startDate  DATE,
     lastDate  DATE,
     frequency INTEGER,
-    videoCode INTEGER
+    videoCode INTEGER, CHECK (class = 'Economy' OR class = 'Whole Day' OR class = 'Golden Hours')
 );
 
-/**
-CREATE TABLE AirtimePackage (
-    packageID INTEGER PRIMARY KEY, 
-    class VARCHAR (16), 
-    starDate DATE, 
-    lastDate DATE, 
-    frequency INTEGER, 
-    videoCode INTEGER, CHECK (class = 'Economy' OR class = 'Whole Day' OR class = 'Golden Hours'))
-**/
+
 
 -- Table: Broadcasts
 CREATE TABLE IF NOT EXISTS Broadcasts (
@@ -80,16 +72,11 @@ CREATE TABLE IF NOT EXISTS Client (
 -- Table: DigitalDisplay
 CREATE TABLE IF NOT EXISTS DigitalDisplay (
     serialNo        CHAR (10) PRIMARY KEY,
-    schedularSystem CHAR (10),
+    schedularSystem CHAR (10) CHECK ('Random' OR 'Smart' OR 'Virtue'),
     modelNo         CHAR (10) REFERENCES Model (modelNo) 
 );
 
-/**
-CREATE TABLE DigitalDisplay (
-    serialNo CHAR (10) PRIMARY KEY, 
-    schedularSystem CHAR (10) CHECK ('Random' OR 'Smart' OR 'Virtue'), 
-    modelNo CHAR (10) REFERENCES Model (modelNo))
-**/
+
 
 -- Table: Locates
 CREATE TABLE IF NOT EXISTS Locates (
@@ -137,28 +124,22 @@ CREATE TABLE IF NOT EXISTS Salesman (
 
 -- Table: Site
 CREATE TABLE IF NOT EXISTS Site (
-    siteCode INTEGER       PRIMARY KEY,
-    type     VARCHAR (16),
+    siteCode INTEGER      PRIMARY KEY,
+    type     VARCHAR (16) ,
     address  VARCHAR (100),
-    phone    VARCHAR (16) 
+    phone    VARCHAR (16), CHECK (type = 'bar' OR type = 'restaurant') 
 );
 
-/**
-CREATE TABLE Site (
-    siteCode INTEGER PRIMARY KEY, 
-    type VARCHAR (16), 
-    address VARCHAR (100), 
-    phone VARCHAR (16), CHECK (type = 'bar' OR type = 'restaurant'))
-**/
+
 
 --change modelNO to modelNo
 -- Table: Specializes
 CREATE TABLE IF NOT EXISTS Specializes (
     empID   INTEGER   REFERENCES TechnicalSupport (empID),
-    modelNO CHAR (10) REFERENCES Model (modelNo),
+    modelNo CHAR (10) REFERENCES Model (modelNo),
     PRIMARY KEY (
         empID,
-        modelNO
+        modelNo
     )
 );
 
