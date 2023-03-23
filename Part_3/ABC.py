@@ -16,12 +16,9 @@ def create_connection(db_file):
         print(e)
     return conn
     
-
 if __name__ == '__main__':
-    create_connection(r"ABC.sqlite")
+    create_connection(r"Part_3/ABC.sqlite")
     
-
-
 
 def close_connection(conn):
      conn.close
@@ -74,13 +71,9 @@ def select_questionThree(conn):
 
 
 def main():
-    database = (r"ABC.sqlite")
+    database = (r"Part_3/ABC.sqlite")
     conn= create_connection(database)
-   
-    if __name__ == '__main__':
-        create_connection(r"ABC.sqlite")
-    
-    print("Connection with database has been established")
+    print("This is inside the main function")
   
     with conn:
         while( len(sys.argv) > 3):
