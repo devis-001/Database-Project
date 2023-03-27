@@ -98,6 +98,45 @@ def select_questionThree(conn, other):
 
 
 
+#For number Seven
+
+def select_questionSeven(conn, other):
+
+    cur=conn.cursor()
+    cur.execute("SELECT Salesman.name, AVG(Purchases.commissionRate) AS avg_commission FROM Salesman INNER JOIN Purchases ON Salesman.empId = Purchases.empId GROUP BY Salesman.name ORDER BY avg_commission DESC;")
+    records = cur.fetchall()
+
+    if((len(records)) != 0):
+        for row in records:
+            print(row)
+
+    else:
+        print ("Empty Table.")
+
+
+    close_connection(conn)
+
+
+#For number eight
+
+def select_questionEight(conn, other):
+
+    cur=conn.cursor()
+    cur.execute("SELECT 'Administrator' AS Role, COUNT(*) AS cnt FROM administrator UNION ALL SELECT 'Salesman' AS Role, COUNT(*) AS cnt FROM salesman UNION ALL SELECT 'Technicians' AS Role, COUNT(*) AS cnt FROM technicalsupport;")
+    records = cur.fetchall()
+
+    if((len(records)) != 0):
+        for row in records:
+            print(row)
+
+    else:
+        print ("Empty Table.")
+
+
+    close_connection(conn)
+
+
+
 
 def main(question_num, other):
     database = (r"Part_3/ABC.sqlite")
@@ -119,6 +158,14 @@ def main(question_num, other):
         select_questionTwo(conn, other)
     elif(question_num=='3'):
         select_questionThree(conn, other)
+
+#for selecting question Seven
+    elif(question_num=='7'):
+        select_questionSeven(conn, other)
+
+ #for selecting question Eight
+    elif(question_num=='8'):
+        select_questionEight(conn, other)
     else:
         close_connection(conn)
         return 1
@@ -134,3 +181,4 @@ if __name__ == '__main__':
 
     else:
         main(sys.argv[1], None)
+
