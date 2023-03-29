@@ -100,7 +100,7 @@ def select_questionThree(conn, other):
 def select_questionFour(conn, phone):
     """
     Query clientId, name, phone, address
-    :param conn: phone ext '-###'
+    :param conn: phone ext '-####'
     :return:
     """
 
