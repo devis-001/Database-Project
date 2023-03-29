@@ -97,6 +97,67 @@ def select_questionThree(conn, other):
     close_connection(conn)
 
 
+def select_questionFour(conn, phone):
+    """
+    Query clientId, name, phone, address
+    :param conn: phone ext '-###'
+    :return:
+    """
+
+    cur=conn.cursor()
+    cur.execute("SELECT clientId, name, phone, address FROM Client WHERE phone =?", (phone,))
+    records = cur.fetchall()
+
+    if((len(records)) != 0):
+        for row in records:
+            print(row)
+    
+    else:
+        print("Empty Table.")
+
+    close_connection(conn)
+
+def select_questionFive(conn, other)
+    """
+    Query empID, name, hours
+    :param conn: the connection object
+    :return:
+    """
+    
+    #still need to edit to put hours in ascending order 'easy fix'
+    cur=conn.cursor()
+    cur.execute("SELECT a.empID, a.name, hours FROM Administrator a JOIN AdmWorkHours b ON b.empID = a.empId")
+    records = cur.fetchall()
+
+    if((len(records)) != 0):
+        for row in records:
+            print(row)
+
+    else:
+        print("Empty Table.")
+
+        close_connection(conn)
+
+def select_questionSix(conn, modelNo):
+    """
+    Query name
+    :param conn: modelNo
+    :return:
+    """
+
+    cur=conn.cur()
+    cur.execute("SELECT name FROM TechnicalSupport t JOIN Specializes s ON t.empId = s.empId WHERE modelNo =?", (modelNo,))
+    records = cur.fetchall()
+
+    if((len(records)) != 0):
+        for row in records:
+            print(row)
+    else:
+        print("Empty Table");
+
+        close_connection(conn)
+
+
 
 #For number Seven
 
