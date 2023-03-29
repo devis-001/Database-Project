@@ -117,16 +117,15 @@ def select_questionFour(conn, phone):
 
     close_connection(conn)
 
-def select_questionFive(conn, other)
+def select_questionFive(conn, other):
     """
     Query empID, name, hours
     :param conn: the connection object
     :return:
     """
     
-    #still need to edit to put hours in ascending order 'easy fix'
     cur=conn.cursor()
-    cur.execute("SELECT a.empID, a.name, hours FROM Administrator a JOIN AdmWorkHours b ON b.empID = a.empId")
+    cur.execute("SELECT a.empID, a.name, hours FROM Administrator a JOIN AdmWorkHours b ON b.empID = a.empId ORDER BY hours ASC")
     records = cur.fetchall()
 
     if((len(records)) != 0):
