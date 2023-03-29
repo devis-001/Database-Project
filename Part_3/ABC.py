@@ -147,7 +147,7 @@ def select_questionSix(conn, modelNo):
 
     cur=conn.cur()
     cur.execute("SELECT name FROM TechnicalSupport t JOIN Specializes s ON t.empId = s.empId WHERE modelNo =?", (modelNo,))
-    records = cur.fetchall()
+    records = cur.safetchall()
 
     if((len(records)) != 0):
         for row in records:
