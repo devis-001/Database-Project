@@ -144,7 +144,7 @@ def select_questionSix(conn, modelNo):
     :return:
     """
 
-    cur=conn.cur()
+    cur=conn.cursor()
     cur.execute("SELECT name FROM TechnicalSupport t JOIN Specializes s ON t.empId = s.empId WHERE modelNo =?", (modelNo,))
     records = cur.safetchall()
 
