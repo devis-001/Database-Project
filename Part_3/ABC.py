@@ -219,6 +219,21 @@ def main(question_num, other):
     elif(question_num=='3'):
         select_questionThree(conn, other)
 
+    elif(question_num=='4'):
+        if other is None:
+            print("Missing parameter.")
+            return 1
+        select_questionFour(conn,other)
+    
+    elif(question_num=='5'):
+        select_questionFive(conn, other)
+
+    elif(question_num=='6'):
+        if other is None:
+            print("Missing parameter.")
+            return 1
+        select_questionSix(conn, other)
+
 #for selecting question Seven
     elif(question_num=='7'):
         select_questionSeven(conn, other)
