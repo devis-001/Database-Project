@@ -83,12 +83,24 @@ def select_questionThree(conn, other):
     :return:
     """
     cur=conn.cursor()
-    cur.execute("SELECT COUNT(DISTINCT name) AS cnt, name AS Name FROM Salesman WHERE (empId, name, gender) IN (SELECT empId, name, gender FROM SalesMan WHERE Name = Name) GROUP BY name ORDER BY name ASC")
-    records = cur.fetchall()
+    cur.execute("SELECT COUNT(name) AS cnt, name AS Name FROM Salesman WHERE (empId, name, gender) IN (SELECT empId, name, gender FROM Salesman WHERE Name = Name) GROUP BY name ORDER BY name ASC")
+    counts = cur.fetchall()
+    
 
-    if((len(records)) != 0):
-        for row in records:
-            print(row)
+    print("Name       cnt")
+    print("--------------")
+
+    if((len(counts)) != 0):
+        for row in counts:
+            if(row[0] == 1):
+                print(row[1].ljust(10) , row[0])
+            else:
+                cur.execute("SELECT empId, name, gender FROM Salesman WHERE name = ?", [(row[1]),])
+                dupes = cur.fetchall()
+                dupe_string = ""
+                for dupe in dupes:
+                    dupe_string += ",(" + str(dupe[0]) + "," + dupe[1] + ",'" + dupe[2] + "')"
+                print(row[1].ljust(10), row[0], dupe_string[1:])
 
     else:
         print ("Empty Table.")
