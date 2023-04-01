@@ -146,7 +146,7 @@ def select_questionSix(conn, modelNo):
 
     cur=conn.cursor()
     cur.execute("SELECT name FROM TechnicalSupport t JOIN Specializes s ON t.empId = s.empId WHERE modelNo =?", (modelNo,))
-    records = cur.safetchall()
+    records = cur.fetchall()
 
     if((len(records)) != 0):
         for row in records:
@@ -227,7 +227,7 @@ def main(question_num, other):
     
     elif(question_num=='5'):
         select_questionFive(conn, other)
-
+    #question
     elif(question_num=='6'):
         if other is None:
             print("Missing parameter.")
