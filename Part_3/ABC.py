@@ -213,7 +213,7 @@ def select_questionEight(conn, other):
 def main(question_num, other):
     database = (r"Part_3/ABC.sqlite")
     conn= create_connection(database)
-    print("in main, question_num = " + question_num)
+  
 
     if(question_num=='1'):
         print('calling question one')
