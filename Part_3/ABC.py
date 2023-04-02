@@ -177,6 +177,7 @@ def select_questionSeven(conn, other):
     cur=conn.cursor()
     cur.execute("SELECT Salesman.name, AVG(Purchases.commissionRate) AS avg_commission FROM Salesman INNER JOIN Purchases ON Salesman.empId = Purchases.empId GROUP BY Salesman.name ORDER BY avg_commission DESC;")
     records = cur.fetchall()
+    
 
     if((len(records)) != 0):
         for row in records:
@@ -196,6 +197,8 @@ def select_questionEight(conn, other):
     cur=conn.cursor()
     cur.execute("SELECT 'Administrator' AS Role, COUNT(*) AS cnt FROM administrator UNION ALL SELECT 'Salesmen' AS Role, COUNT(*) AS cnt FROM salesman UNION ALL SELECT 'Technicians' AS Role, COUNT(*) AS cnt FROM technicalsupport;")
     records = cur.fetchall()
+    print("Name       cnt")
+    print("--------------")
 
     if((len(records)) != 0):
         for row in records:
