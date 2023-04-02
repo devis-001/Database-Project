@@ -194,7 +194,7 @@ def select_questionSeven(conn, other):
 def select_questionEight(conn, other):
 
     cur=conn.cursor()
-    cur.execute("SELECT 'Administrator' AS Role, COUNT(*) AS cnt FROM administrator UNION ALL SELECT 'Salesman' AS Role, COUNT(*) AS cnt FROM salesman UNION ALL SELECT 'Technicians' AS Role, COUNT(*) AS cnt FROM technicalsupport;")
+    cur.execute("SELECT 'Administrator' AS Role, COUNT(*) AS cnt FROM administrator UNION ALL SELECT 'Salesmen' AS Role, COUNT(*) AS cnt FROM salesman UNION ALL SELECT 'Technicians' AS Role, COUNT(*) AS cnt FROM technicalsupport;")
     records = cur.fetchall()
 
     if((len(records)) != 0):
