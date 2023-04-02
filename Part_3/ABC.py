@@ -36,12 +36,22 @@ def select_questionOne(conn, other):
     :param other: Address given in query
     :return:
     """
-    print("in question one")
+   
 
     cur=conn.cursor()
 
-    wrapped_other = ("%%"+other+"%%",)
+    wrapped_other = ("",)
 
+    if(isinstance(other, str)):
+        wrapped_other = ("%%"+other+"%%",)
+    else:
+        tmp_str = ""
+        for item in other:
+            tmp_str += item + " "
+        tmp_str = tmp_str.strip()
+        wrapped_other = ("%%"+tmp_str+"%%",)
+
+   
     cur.execute("SELECT * FROM Site WHERE address LIKE ?", wrapped_other)
 
     records = cur.fetchall()
@@ -197,7 +207,7 @@ def select_questionEight(conn, other):
     cur=conn.cursor()
     cur.execute("SELECT 'Administrator' AS Role, COUNT(*) AS cnt FROM administrator UNION ALL SELECT 'Salesmen' AS Role, COUNT(*) AS cnt FROM salesman UNION ALL SELECT 'Technicians' AS Role, COUNT(*) AS cnt FROM technicalsupport;")
     records = cur.fetchall()
-    print("Name       cnt")
+    print("Role       cnt")
     print("--------------")
 
     if((len(records)) != 0):
@@ -264,9 +274,10 @@ def main(question_num, other):
 if __name__ == '__main__':
     print(sys.argv)
     if (len(sys.argv) >= 3):
-        main(sys.argv[1], sys.argv[2])
         if (len(sys.argv) > 3):
             main(sys.argv[1], sys.argv[2:])
+        else:
+            main(sys.argv[1], sys.argv[2])
 
 
     else:
