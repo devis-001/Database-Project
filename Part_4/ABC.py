@@ -72,7 +72,7 @@ def select_option_six(conn):
 while True:
     def main():
         db_name = input("Please enter the name of the database: ")
-        if (db_name == "ABC.py"): 
+        if (db_name == "ABC.sqlite"): 
             database = (r"Part_3/ABC.sqlite")
             conn= create_connection(database)
             print("1. Display all the digital displays.\n")
