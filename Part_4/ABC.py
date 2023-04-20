@@ -28,258 +28,85 @@ def close_connection(conn):
 """
 insert: define functions here
 """
-
-def select_questionOne(conn, other):
-    """
-    Query Sites by address
-    :param conn: the connection object
-    :param other: Address given in query
-    :return:
-    """
-   
-
+def select_option_one(conn):
     cur=conn.cursor()
-
-    wrapped_other = ("",)
-
-    if(isinstance(other, str)):
-        wrapped_other = ("%%"+other+"%%",)
-    else:
-        tmp_str = ""
-        for item in other:
-            tmp_str += item + " "
-        tmp_str = tmp_str.strip()
-        wrapped_other = ("%%"+tmp_str+"%%",)
-
-   
-    cur.execute("SELECT * FROM Site WHERE address LIKE ?", wrapped_other)
-
+    cur.execute("SELECT * FROM DigitalDisplay")
     records = cur.fetchall()
-
-
-    if((len(records)) != 0):
-        for row in records:
-            print(row)
-    else:
-        print ("No matching rows returned.")
-
-
-    close_connection(conn)
-
-def select_questionTwo(conn, schedulerSystemInput):
-    """
-    Query DigitalDisplay, Specializes, TechnicalSupport by schedularSystem
-    :param conn: the connection object
-    :param schedularSystemInput: schedularSystem entered in query
-    :return:
-    """
-    cur=conn.cursor()
-    cur.execute("SELECT serialNo, DigitalDisplay.modelNo, name FROM DigitalDisplay, Specializes, TechnicalSupport WHERE DigitalDisplay.modelNo=Specializes.modelNo AND Specializes.empId=TechnicalSupport.empId AND schedulerSystem = ?", (schedulerSystemInput,))
-    records = cur.fetchall()
-
-    if((len(records)) != 0):
-        for row in records:
-            print(row)
-    else:
-        print ("No matching rows returned.")
-
-
-    close_connection(conn)
-
-def select_questionThree(conn, other):
-    """
-    Query DigitalDisplay, Specializes, TechnicalSupport
-    :param conn: the connection object
-    :return:
-    """
-    cur=conn.cursor()
-    cur.execute("SELECT COUNT(name) AS cnt, name AS Name FROM Salesman WHERE (empId, name, gender) IN (SELECT empId, name, gender FROM Salesman WHERE Name = Name) GROUP BY name ORDER BY name ASC")
-    counts = cur.fetchall()
-    
-
-    print("Name       cnt")
-    print("--------------")
-
-    if((len(counts)) != 0):
-        for row in counts:
-            if(row[0] == 1):
-                print(row[1].ljust(10) , row[0])
-            else:
-                cur.execute("SELECT empId, name, gender FROM Salesman WHERE name = ?", [(row[1]),])
-                dupes = cur.fetchall()
-                dupe_string = ""
-                for dupe in dupes:
-                    dupe_string += ",(" + str(dupe[0]) + "," + dupe[1] + ",'" + dupe[2] + "')"
-                print(row[1].ljust(10), row[0], dupe_string[1:])
-
-    else:
-        print ("Empty Table.")
-
-
-    close_connection(conn)
-
-
-def select_questionFour(conn, phone):
-    """
-    Query clientId, name, phone, address
-    :param conn: phone ext '-####'
-    :return:
-    """
-
-    cur=conn.cursor()
-    cur.execute("SELECT clientId, name, phone, address FROM Client WHERE phone =?", (phone,))
-    records = cur.fetchall()
-
-    if((len(records)) != 0):
-        for row in records:
-            print(row)
-    
-    else:
-        print("Empty Table.")
-
-    close_connection(conn)
-
-def select_questionFive(conn, other):
-    """
-    Query empID, name, hours
-    :param conn: the connection object
-    :return:
-    """
-    
-    cur=conn.cursor()
-    cur.execute("SELECT a.empID, a.name, hours FROM Administrator a JOIN AdmWorkHours b ON b.empID = a.empId ORDER BY hours ASC")
-    records = cur.fetchall()
-
     if((len(records)) != 0):
         for row in records:
             print(row)
 
     else:
         print("Empty Table.")
-
-        close_connection(conn)
-
-def select_questionSix(conn, modelNo):
-    """
-    Query name
-    :param conn: modelNo
-    :return:
-    """
-
+ 
+    model = input('If you wish to see the detailed information of a Model please enter the model number:')
     cur=conn.cursor()
-    cur.execute("SELECT name FROM TechnicalSupport t JOIN Specializes s ON t.empId = s.empId WHERE modelNo =?", (modelNo,))
+    cur.execute("SELECT * FROM Model WHERE modelNo =?", (model,))
     records = cur.fetchall()
-
-    if((len(records)) != 0):
-        for row in records:
-            print(row)
-    else:
-        print("Empty Table");
-
-        close_connection(conn)
-
-
-
-#For number Seven
-
-def select_questionSeven(conn, other):
-
-    cur=conn.cursor()
-    cur.execute("SELECT Salesman.name, AVG(Purchases.commissionRate) AS avg_commission FROM Salesman INNER JOIN Purchases ON Salesman.empId = Purchases.empId GROUP BY Salesman.name ORDER BY avg_commission DESC;")
-    records = cur.fetchall()
+    for i in records:
+        cur=conn.cursor()
+        cur.execute("SELECT * FROM Model WHERE modelNo =?", (model,))
+        records = cur.fetchall()
+        if (i == model):
+            print("The detailed model information: ")
+            print(i)
     
-
-    if((len(records)) != 0):
-        for row in records:
-            print(row)
-
-    else:
-        print ("Empty Table.")
+ 
+#def select_option_two(conn):
 
 
-    close_connection(conn)
+#def select_option_three(conn):
 
+#def select_option_four(conn):
+    
+#def select_option_five(conn):
+   
 
-#For number eight
-
-def select_questionEight(conn, other):
-
-    cur=conn.cursor()
-    cur.execute("SELECT 'Administrator' AS Role, COUNT(*) AS cnt FROM administrator UNION ALL SELECT 'Salesmen' AS Role, COUNT(*) AS cnt FROM salesman UNION ALL SELECT 'Technicians' AS Role, COUNT(*) AS cnt FROM technicalsupport;")
-    records = cur.fetchall()
-    print("Role       cnt")
-    print("--------------")
-
-    if((len(records)) != 0):
-        for row in records:
-            print(row)
-
-    else:
-        print ("Empty Table.")
-
-
-    close_connection(conn)
+def select_option_six(conn):
+    conn.close
+    print("The connection with the database has been closed. ")
+ 
 
 
 
-
-def main(question_num, other):
-    database = (r"Part_3/ABC.sqlite")
-    conn= create_connection(database)
+while True:
+    def main():
+        db_name = input("Please enter the name of the database: ")
+        if (db_name == "ABC.py"): 
+            database = (r"Part_3/ABC.sqlite")
+            conn= create_connection(database)
+            print("1. Display all the digital displays.\n")
+            print("2. Search digital displays given a scheduler system.\n")
+            print("3. Insert a new digital display.\n")
+            print("4. Delete a digital display.\n")
+            print("5. Update a digital display.\n")
+            print("6. Logout.")
+            main_menu = input('Please enter the number for the desired option for the menu:')
+        else: 
+            print("Invalid database name. Please try again. ")
   
 
-    if(question_num=='1'):
-        print('calling question one')
-        if other is None:
-            #error message here
-            print("Missing parameter.")
-            return 1
-        select_questionOne(conn, other)
+            if(main_menu=='1'):
+                select_option_one(conn)
 
-    elif(question_num=='2'):
-        if other is None:
-            print("Missing parameter.")
-            return 1
-        select_questionTwo(conn, other)
-    elif(question_num=='3'):
-        select_questionThree(conn, other)
+            #elif(main_menu=='2'):
+     
+                #select_option_two(conn)
 
-    elif(question_num=='4'):
-        if other is None:
-            print("Missing parameter.")
-            return 1
-        select_questionFour(conn,other)
+            #elif(main_menu=='3'):
+                #select_option_three(conn)
+
+            #elif(main_menu=='4'):
+                #select_option_four(conn)
     
-    elif(question_num=='5'):
-        select_questionFive(conn, other)
+            #elif(main_menu=='5'):
+                #select_option_five(conn)
     #question
-    elif(question_num=='6'):
-        if other is None:
-            print("Missing parameter.")
-            return 1
-        select_questionSix(conn, other)
-
-#for selecting question Seven
-    elif(question_num=='7'):
-        select_questionSeven(conn, other)
-
- #for selecting question Eight
-    elif(question_num=='8'):
-        select_questionEight(conn, other)
-    else:
-        close_connection(conn)
-        return 1
+            #elif(main_menu=='6'):
+                #select_option_six(conn)
+            else:
+                print("Invalid input. Please try again ")
 
 
-if __name__ == '__main__':
-    print(sys.argv)
-    if (len(sys.argv) >= 3):
-        if (len(sys.argv) > 3):
-            main(sys.argv[1], sys.argv[2:])
-        else:
-            main(sys.argv[1], sys.argv[2])
 
-
-    else:
-        main(sys.argv[1], None)
-
+    if __name__ == '__main__':
