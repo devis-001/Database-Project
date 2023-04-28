@@ -56,41 +56,43 @@ def select_option_one(conn):
         print(i)
     
  
-#def select_option_two(conn):
+def select_option_two(conn):
     '''
     Creates a connection to database 
     Creates a cursor option by calling the cursor method
     Search digital displays given a scheduler system
     '''
-    def select_option_two(conn, schedulerSystem):
-        cur=conn.cursor()
-        cur.execute("SELECT * FROM DigitalDisplay WHERE schedulerSystem = ?", schedulerSystem,)
-        records = cur.fetchall()
-        if((len(records)) != 0):
-            for row in records:
-                print(row)
+    schedularSystem = input("Search digital display given the schedular system:")
+    cur=conn.cursor()
+    cur.execute("SELECT * FROM DigitalDisplay WHERE schedulerSystem =?", (schedularSystem,))
+    records = cur.fetchall()
+    if((len(records)) != 0):
+        for row in records:
+            print(row)
+    else:
+        print("Empty Table.")
 
-        else:
-            print("Empty Table.")
+        close_connection(conn)
 
-            close_connection(conn)
 
-#def select_option_three(conn):
-    def select_option_three(conn, serialNo, schedularSystem, modelNo):
-        cur = conn.cursor()
-        cur.execute("INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, ?, ?)", serialNo, schedularSystem, modelNo)
-        #This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not 
-        #visible from other database connections.
-        conn.commit()
-        records = cur.fetchall()
-        if((len(records)) !=0):
-            for row in records:
-                print(row)
-        
-        else:
-            print("Empty table")
+def select_option_three(conn):
+    serialNo = input("What is the serialNo: ")
+    schedularSystem = input("What type of schedularSystem: ")
+    modelNo = input("What is the modelNo: ")
+    cur = conn.cursor()
+    cur.execute("INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, ?, ?)", (serialNo, schedularSystem, modelNo))
+    #This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not 
+    #visible from other database connections.
+    conn.commit()
+    records = cur.fetchall()
+    if((len(records)) !=0):
+        for row in records:
+            print(row)
+    
+    else:
+        print("Empty table")
 
-            close_connection(conn)
+        close_connection(conn)
 
 
 
@@ -128,11 +130,11 @@ while True:
             if(main_menu=='1'):
                 select_option_one(conn)
 
-            #elif(main_menu=='2'):
-                #select_option_two(conn)
+            elif(main_menu=='2'):
+                select_option_two(conn)
 
-            #elif(main_menu=='3'):
-                #select_option_three(conn)
+            elif(main_menu=='3'):
+                select_option_three(conn)
 
             #elif(main_menu=='4'):
                 #select_option_four(conn)
