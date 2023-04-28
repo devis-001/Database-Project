@@ -76,6 +76,11 @@ def select_option_one(conn):
             close_connection(conn)
 
 #def select_option_three(conn):
+    def select_option_two(conn, insert):
+        cur = conn.cursor()
+        cur.execute('INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, "?", ?);', (insert,))
+        conn.commit()
+
 
 
 
