@@ -76,7 +76,7 @@ def select_option_one(conn):
             close_connection(conn)
 
 #def select_option_three(conn):
-    def select_option_two(conn, serialNo, schedularSystem, modelNo):
+    def select_option_three(conn, serialNo, schedularSystem, modelNo):
         cur = conn.cursor()
         cur.execute("INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, ?, ?)", serialNo, schedularSystem, modelNo)
         #This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not 
