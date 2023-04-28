@@ -5,6 +5,10 @@ import argparse
 
 sys.builtin_module_names
 
+
+'''
+    Creates a database file connection
+'''
 def create_connection(db_file):
 
     conn = None
@@ -49,16 +53,35 @@ def select_option_one(conn):
         records = cur.fetchall()
         if (i == model):
             print("The detailed model information: ")
-            print(i)
+        print(i)
     
  
 #def select_option_two(conn):
+    '''
+    Creates a connection to database 
+    Creates a cursor option by calling the cursor method
+    Search digital displays given a scheduler system
+    '''
+    def select_option_two(conn, schedulerSystem):
+        cur=conn.cursor()
+        cur.execute("SELECT * FROM DigitalDisplay WHERE schedulerSystem = ?", (schedulerSystem,))
+        records = cur.fetchall()
+        if((len(records)) != 0):
+            for row in records:
+                print(row)
 
+        else:
+            print("Empty Table.")
+
+            close_connection(conn)
 
 #def select_option_three(conn):
 
+
+
+
 #def select_option_four(conn):
-    
+
 #def select_option_five(conn):
    
 
@@ -90,7 +113,6 @@ while True:
                 select_option_one(conn)
 
             #elif(main_menu=='2'):
-     
                 #select_option_two(conn)
 
             #elif(main_menu=='3'):
