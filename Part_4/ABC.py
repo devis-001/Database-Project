@@ -24,7 +24,7 @@ def create_connection(db_file):
     return conn
 
 # if __name__ == '__main__':
-#     create_connection(r"Part_3/ABC.sqlite")
+#     create_connection(r"C:\Users\hp\Desktop\Database-Project-main\Database-Project-main\Part_4\ABC.sqlite")
 
 
 def close_connection(conn):
@@ -101,13 +101,100 @@ def select_option_three(conn):
     else:
         print("Empty table")
 
-     
+import sqlite3
+
+def select_option_four(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM DigitalDisplay")
+    records = cur.fetchall()
+
+    if len(records) == 0:
+        print("Empty table")
+        return
+
+    # Display all digital displays
+    print("All digital displays:")
+    for row in records:
+        print(row)
+
+    # Ask user to select a digital display to delete
+    serialNo = input("Enter the serial number of the digital display to delete: ")
+
+    # Check if the selected digital display exists in the table
+    cur.execute("SELECT * FROM DigitalDisplay WHERE serialNo=?", (serialNo,))
+    record = cur.fetchone()
+
+    if record is None:
+        print("Digital display not found")
+        return
+
+    # Delete the selected digital display
+    cur.execute("DELETE FROM DigitalDisplay WHERE serialNo=?", (serialNo,))
+    conn.commit()
+    print("Digital display deleted")
+
+    # Check if any other digital display has the same model number
+    cur.execute("SELECT * FROM DigitalDisplay WHERE modelNo=?", (record[2],))
+    records = cur.fetchall()
+
+    if len(records) == 0:
+        # Delete the corresponding model number from the "Model" table
+        cur.execute("DELETE FROM Model WHERE modelNo=?", (record[2],))
+        conn.commit()
+        print("Model number deleted")
+
+    # Display all digital displays and models after deletion
+    print("All digital displays after deletion:")
+    cur.execute("SELECT * FROM DigitalDisplay")
+    records = cur.fetchall()
+    for row in records:
+        print(row)
+
+    print("All models after deletion:")
+    cur.execute("SELECT * FROM Model")
+    records = cur.fetchall()
+    for row in records:
+        print(row)
 
 
-# def select_option_four(conn):
+def select_option_five(conn):
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM DigitalDisplay")
+    records = cur.fetchall()
+    if ((len(records)) != 0):
+        for row in records:
+            print(row)
+        
+        serialNo = input("Enter the serial number of the digital display you want to update: ")
+        cur.execute("SELECT * FROM DigitalDisplay WHERE serialNo=?", (serialNo,))
+        record = cur.fetchone()
 
+        if record:
+            print("Updating digital display with serial number:", serialNo)
 
-# def select_option_five(conn):
+            schedulerSystem = input("Enter the new scheduler system for the digital display: ")
+            modelNo = input("Enter the new model number for the digital display: ")
+
+            # Disable foreign key constraints
+            cur.execute("PRAGMA foreign_keys = OFF")
+
+            # Update the DigitalDisplay table
+            cur.execute("UPDATE DigitalDisplay SET schedulerSystem=?, modelNo=? WHERE serialNo=?",
+                        (schedulerSystem, modelNo, serialNo))
+
+            # Update the Model table
+            cur.execute("UPDATE Model SET modelNo=? WHERE modelNo=?",
+                        (modelNo, record[2]))
+
+            # Commit the changes
+            conn.commit()
+
+            print("Digital display with serial number", serialNo, "updated successfully")
+        else:
+            print("Digital display with serial number", serialNo, "does not exist")
+    else:
+        print("Empty table")
+
 
 
 def select_option_six(conn):
@@ -143,11 +230,11 @@ def main():
             elif (main_menu == '3'):
                 select_option_three(conn)
 
-            # elif(main_menu=='4'):
-                # select_option_four(conn)
+            elif(main_menu=='4'):
+                select_option_four(conn)
 
-            # elif(main_menu=='5'):
-                # select_option_five(conn)
+            elif(main_menu=='5'):
+                select_option_five(conn)
     # question
             elif (main_menu == '6'):
                 break
