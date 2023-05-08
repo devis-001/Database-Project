@@ -82,7 +82,7 @@ def select_option_two(conn):
 
         
 
-
+##Fix execute issue; sqlite3.IntegrityError: FOREIGN KEY constraint failed
 def select_option_three(conn):
     serialNo = input("What is the serialNo: ")
     schedulerSystem = input("What type of schedularSystem: ")
