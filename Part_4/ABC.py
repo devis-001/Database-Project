@@ -24,7 +24,7 @@ def create_connection(db_file):
     return conn
 
 # if __name__ == '__main__':
-#     create_connection(r"C:\Users\hp\Desktop\Database-Project-main\Database-Project-main\Part_4\ABC.sqlite")
+#     create_connection(r"ABC.sqlite")
 
 
 def close_connection(conn):
@@ -101,7 +101,6 @@ def select_option_three(conn):
     else:
         print("Empty table")
 
-import sqlite3
 
 def select_option_four(conn):
     cur = conn.cursor()
@@ -197,6 +196,7 @@ def select_option_five(conn):
 
 
 
+
 def select_option_six(conn):
     conn.close
     print("The connection with the database has been closed. ")
@@ -241,7 +241,7 @@ def main():
             
             else:
                 print("Invalid input. Please try again ")
-                
+
     close_connection(conn)
 
 if __name__ == '__main__':
