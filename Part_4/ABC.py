@@ -88,10 +88,10 @@ def select_option_three(conn):
     serialNo = input("What is the serialNo: ")
     schedulerSystem = input("What type of schedularSystem: ")
     modelNo = input("What is the modelNo: ")
-    cur.execute("INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, ?, ?)", (serialNo, schedulerSystem, modelNo,))
+    cur.execute("INSERT INTO DigitalDisplay(serial=?, schedulerSystem=?, modelNo=?)", (serialNo, schedulerSystem, modelNo,))
     # This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not
     # visible from other database connections.
-    #conn.commit()
+    conn.commit()
     records = cur.fetchall()
     if ((len(records)) != 0):
         for row in records:
