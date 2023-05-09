@@ -95,7 +95,7 @@ def select_option_three(conn):
     weight = input("What is the weight: ")
     depth = input("What is the depth: ")
     screenSize = input("What is the screen size: ")
-    cur.execute("INSERT INTO Model(modelNo, width, height, weight, depth, screenSize) VALUES (?, ?, ?, ?, ?, ?, ?)", (modelNo, width, height, weight, depth, screenSize))
+    cur.execute("INSERT INTO Model(modelNo, width, height, weight, depth, screenSize) VALUES (?, ?, ?, ?, ?, ?)", (modelNo, width, height, weight, depth, screenSize))
     cur.execute("INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, ?, ?)", (serialNo, schedulerSystem, modelNo,))
     # This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not
     # visible from other database connections.
