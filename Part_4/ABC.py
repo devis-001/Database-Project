@@ -82,6 +82,7 @@ def select_option_two(conn):
 
         
 #strip spaces from schedularsystem
+
 #Check if model exists before creating DigitalDisplay, Foreign Key requires it
 def select_option_three(conn):
     cur = conn.cursor()
