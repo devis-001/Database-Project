@@ -84,11 +84,13 @@ def select_option_two(conn):
 
 ##Fix execute issue; sqlite3.IntegrityError: FOREIGN KEY constraint failed
 def select_option_three(conn):
-    serialNo = input("What is the serialNo: ")
-    schedulerSystem = input("What type of schedularSystem: ")
-    modelNo = input("What is the modelNo: ")
     cur = conn.cursor()
-    cur.execute("INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, ?, ?)",(serialNo, schedulerSystem, modelNo))
+    serialNo = input("What is the serialNo: ")
+    cur.execute("INSERT INTO DigitalDisplay(serialNo) VALUES (?)", (serialNo));
+    schedulerSystem = input("What type of schedularSystem: ")
+    cur.execute("INSERT INTO DigitalDisplay(schedularSystem: ) VALUES (?)", (schedulerSystem));
+    modelNo = input("What is the modelNo: ")
+    cur.execute("INSERT INTO DigitalDisplay(modelNo) VALUES (?)", (modelNo));
     # This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not
     # visible from other database connections.
     conn.commit()
