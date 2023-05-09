@@ -81,8 +81,9 @@ def select_option_two(conn):
         print("Empty Table.")
 
         
-
+#strip spaces from schedularsystem
 ##Fix execute issue; sqlite3.IntegrityError: FOREIGN KEY constraint failed
+#Check if model exists before creating DigitalDisplay, Foreign Key requires it
 def select_option_three(conn):
     cur = conn.cursor()
     serialNo = input("What is the serialNo: ")
@@ -92,6 +93,7 @@ def select_option_three(conn):
     # This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not
     # visible from other database connections.
     conn.commit()
+    #execute select statement to fetchall digitaldisplays
     records = cur.fetchall()
     if ((len(records)) != 0):
         for row in records:
@@ -100,7 +102,7 @@ def select_option_three(conn):
     else:
         print("Empty table")
 
-
+# Ask how to handle DigitalDisplays that have Specializes records that reference it
 def select_option_four(conn):
     cur = conn.cursor()
     cur.execute("SELECT * FROM DigitalDisplay")
@@ -155,6 +157,7 @@ def select_option_four(conn):
         print(row)
 
 
+## Check if model exists before updating the DigitalDisplay, and do not update the old model with the new model number
 def select_option_five(conn):
     cur = conn.cursor()
     cur.execute("SELECT * FROM DigitalDisplay")
