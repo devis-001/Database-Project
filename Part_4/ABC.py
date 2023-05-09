@@ -206,8 +206,8 @@ def main():
     conn = create_connection(db_name)
     while True:
         
-        if (db_name == "ABC.sqlite"):
-            database = (r"ABC.sqlite")
+        # if (db_name == "ABC.sqlite"):
+        #     database = (r"ABC.sqlite")
             
             print("1. Display all the digital displays.\n")
             print("2. Search digital displays given a scheduler system.\n")
