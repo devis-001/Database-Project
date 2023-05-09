@@ -82,13 +82,13 @@ def select_option_two(conn):
 
         
 #strip spaces from schedularsystem
-##Fix execute issue; sqlite3.IntegrityError: FOREIGN KEY constraint failed
 #Check if model exists before creating DigitalDisplay, Foreign Key requires it
 def select_option_three(conn):
     cur = conn.cursor()
     serialNo = input("What is the serialNo: ")
     schedulerSystem = input("What type of schedularSystem: ")
     modelNo = input("What is the modelNo: ")
+    cur.execute("INSERT INTO Model(modelNo) VALUES (?)", (modelNo,))
     cur.execute("INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, ?, ?)", (serialNo, schedulerSystem, modelNo,))
     # This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not
     # visible from other database connections.
@@ -100,7 +100,7 @@ def select_option_three(conn):
             print(row)
 
     else:
-        print("Empty table")
+        print("This is Empty table")
 
 # Ask how to handle DigitalDisplays that have Specializes records that reference it
 def select_option_four(conn):
