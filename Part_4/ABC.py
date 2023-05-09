@@ -88,7 +88,7 @@ def select_option_three(conn):
     serialNo = input("What is the serialNo: ")
     cur.execute("INSERT INTO DigitalDisplay(serialNo) VALUES (?)", (serialNo));
     schedulerSystem = input("What type of schedularSystem: ")
-    cur.execute("INSERT INTO DigitalDisplay(schedularSystem) VALUES (?)", (schedulerSystem));
+    cur.execute("INSERT INTO DigitalDisplay(schedulerSystem) VALUES (?)", (schedulerSystem));
     modelNo = input("What is the modelNo: ")
     cur.execute("INSERT INTO DigitalDisplay(modelNo) VALUES (?)", (modelNo));
     # This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not
