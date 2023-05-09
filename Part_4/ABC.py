@@ -86,11 +86,11 @@ def select_option_two(conn):
 def select_option_three(conn):
     cur = conn.cursor()
     serialNo = input("What is the serialNo: ")
-    cur.execute("INSERT INTO DigitalDisplay(serialNo) VALUES (?)", (serialNo));
+    cur.execute("INSERT INTO DigitalDisplay(serialNo) VALUES (?)", (serialNo,));
     schedulerSystem = input("What type of schedularSystem: ")
-    cur.execute("INSERT INTO DigitalDisplay(schedulerSystem) VALUES (?)", (schedulerSystem[10]));
+    cur.execute("INSERT INTO DigitalDisplay(schedulerSystem) VALUES (?)", (schedulerSystem,));
     modelNo = input("What is the modelNo: ")
-    cur.execute("INSERT INTO DigitalDisplay(modelNo) VALUES (?)", (modelNo));
+    cur.execute("INSERT INTO DigitalDisplay(modelNo) VALUES (?)", (modelNo,));
     # This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not
     # visible from other database connections.
     conn.commit()
