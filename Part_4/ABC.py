@@ -90,24 +90,23 @@ def select_option_three(conn):
     modelNo = input("What is the modelNo: ")
     serialNo = input("What is the serialNo: ")
     schedulerSystem = input("What type of schedularSystem: ")
-    width = input("What is the width: ")
-    height = input("What is the height: ")
-    weight = input("What is the weight: ")
-    depth = input("What is the depth: ")
-    screenSize = input("What is the screen size: ")
-    cur.execute("INSERT INTO Model(modelNo, width, height, weight, depth, screenSize) VALUES (?, ?, ?, ?, ?, ?)", (modelNo, width, height, weight, depth, screenSize))
-    cur.execute("INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, ?, ?)", (serialNo, schedulerSystem, modelNo,))
-    # This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not
-    # visible from other database connections.
-    conn.commit()
-    #execute select statement to fetchall digitaldisplays
-    records = cur.fetchall()
-    if ((len(records)) != 0):
-        for row in records:
-            print(row)
-
+    
+    cur.execute("SELECT * FROM Model WHERE modelNo = ?", (modelNo,))
+    model = cur.fetchone()
+    if model:
+        cur.execute("INSERT INTO DigitalDisplay(serialNo, schedulerSystem, modelNo) VALUES (?, ?, ?)", (serialNo, schedulerSystem, modelNo,))
+        # This method commits the current transaction. If you don't call this method, anything you did since the last call to commit() is not
+        # visible from other database connections.
+        conn.commit()
+        #execute select statement to fetchall digitaldisplays
+        records = cur.fetchall()
+        if ((len(records)) != 0):
+            for row in records:
+                print(row)
+        else:
+            print("This is Empty table")
     else:
-        print("This is Empty table")
+        print("Model with modelNo", modelNo, "does not exist")
 
 # Ask how to handle DigitalDisplays that have Specializes records that reference it
 def select_option_four(conn):
@@ -134,6 +133,11 @@ def select_option_four(conn):
     if record is None:
         print("Digital display not found")
         return
+    
+    
+    # Delete any Locates records that reference the soon-to-be-deleted serialNo
+    cur.execute("DELETE FROM Locates WHERE serialNo = ?", (serialNo,))
+    conn.commit()
 
     # Delete the selected digital display
     cur.execute("DELETE FROM DigitalDisplay WHERE serialNo=?", (serialNo,))
@@ -145,6 +149,9 @@ def select_option_four(conn):
     records = cur.fetchall()
 
     if len(records) == 0:
+        # Delete any Specializes records that reference the soon-to-be-deleted modelNo
+        cur.execute("DELETE FROM Specializes WHERE modelNo = ?", (record[2],))
+        conn.commit()
         # Delete the corresponding model number from the "Model" table
         cur.execute("DELETE FROM Model WHERE modelNo=?", (record[2],))
         conn.commit()
@@ -180,24 +187,25 @@ def select_option_five(conn):
         if record:
             print("Updating digital display with serial number:", serialNo)
 
-            schedulerSystem = input("Enter the new scheduler system for the digital display: ")
-            modelNo = input("Enter the new model number for the digital display: ")
+            schedulerSystem = input("Enter the new scheduler system for the digital display(Random, Smart, Virtue): ").strip()
+            if schedulerSystem in ["Random", "Smart", "Virtue"]:
+                modelNo = input("Enter the new model number for the digital display: ")
 
-            # Disable foreign key constraints
-            cur.execute("PRAGMA foreign_keys = OFF")
+                cur.execute("SELECT * FROM Model WHERE modelNo = ?", (modelNo,))
+                model = cur.fetchone()
+                if model:
+                    # Update the DigitalDisplay table
+                    cur.execute("UPDATE DigitalDisplay SET schedulerSystem=?, modelNo=? WHERE serialNo=?",
+                            (schedulerSystem, modelNo, serialNo))
 
-            # Update the DigitalDisplay table
-            cur.execute("UPDATE DigitalDisplay SET schedulerSystem=?, modelNo=? WHERE serialNo=?",
-                        (schedulerSystem, modelNo, serialNo))
+                    # Commit the changes
+                    conn.commit()
 
-            # Update the Model table
-            cur.execute("UPDATE Model SET modelNo=? WHERE modelNo=?",
-                        (modelNo, record[2]))
-
-            # Commit the changes
-            conn.commit()
-
-            print("Digital display with serial number", serialNo, "updated successfully")
+                    print("Digital display with serial number", serialNo, "updated successfully")
+                else:
+                    print("Model with modelNo", modelNo, "does not exist")
+            else:
+                print("Scheduler System ", schedulerSystem, " not a valid value")
         else:
             print("Digital display with serial number", serialNo, "does not exist")
     else:
